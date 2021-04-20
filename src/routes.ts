@@ -1,17 +1,10 @@
-import { Router, Request, Response } from "express";
+import { Router } from "express";
+import { SettingsController } from "./controller/settingsController";
 
-const router = Router();
+const routes = Router();
 
-router.get("/", (request: Request, response: Response) => {
-  return response.json({
-    message: "Tudo Ok!",
-  });
-});
+const settingsController = new SettingsController();
 
-router.post("/create", (request: Request, response: Response) => {
-  return response.json({
-    message: "Usuário Cadastrado com sucesso!",
-  });
-});
+routes.post("/settings", settingsController.create);
 
-export { router };
+export { routes };
