@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { MessagesService } from "../services/MessagesService";
 
 class MessagesController {
-  async create(request: Request, response: Response) {
+  async create(request: Request, response: Response): Promise<Response> {
     const { admin_id, user_id, text } = request.body;
 
     const messagesService = new MessagesService();
@@ -13,10 +13,10 @@ class MessagesController {
       text,
     });
 
-    return response.status(201).json(message);
+    return response.json(message);
   }
 
-  async showByUser(request: Request, response: Response) {
+  async showByUser(request: Request, response: Response): Promise<Response> {
     // localhost:4000/messages/UserId
     const { id } = request.params;
 

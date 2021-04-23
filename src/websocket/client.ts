@@ -50,5 +50,33 @@ io.on("connect", (socket) => {
       text,
       user_id,
     });
+
+    const allMessages = await messagesService.listByUser(user_id);
+
+    socket.emit("client_list_all_messages", allMessages);
+
+    //To bring all available connections -> clients to Admin (It'll show automatically the new client to ADMIN)
+    const allUsers = await connectionsService.findAllWithoutAdmin();
+    io.emit("admin_list_all_users", allUsers);
+  });
+
+  socket.on("client_send_to_admin", async (params) => {
+    const { text, socket_admin_id } = params;
+
+    //Socket_id = User Socket.id
+    const socket_id = socket.id;
+
+    const { user_id } = await connectionsService.findBySocketId(socket_id);
+
+    const message = await messagesService.create({
+      text,
+      user_id,
+    });
+
+    //To send message to ADMIN -> Admin will need to ear this event
+    io.to(socket_admin_id).emit("admin_receive_message", {
+      message,
+      socket_id,
+    });
   });
 });

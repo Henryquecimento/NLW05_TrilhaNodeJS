@@ -1,10 +1,16 @@
-import { Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from "typeorm";
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryColumn,
+  UpdateDateColumn,
+} from "typeorm";
 import { v4 as uuid } from "uuid";
 
 @Entity("settings")
 class Setting {
   @PrimaryColumn()
-  readonly id: string;
+  id: string;
 
   @Column()
   username: string;
@@ -12,11 +18,11 @@ class Setting {
   @Column()
   chat: boolean;
 
-  @UpdateDateColumn()
-  updated_at: Date;
-
   @CreateDateColumn()
   created_at: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
 
   constructor() {
     if (!this.id) {

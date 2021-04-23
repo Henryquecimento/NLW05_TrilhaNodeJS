@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { MessagesController } from "./controller/MessagesController";
 import { SettingsController } from "./controller/SettingsController";
 import { UsersController } from "./controller/UsersController";
+import { MessagesController } from "./controller/MessagesController";
 
 const routes = Router();
 
